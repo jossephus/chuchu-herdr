@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-// herdr for chuchu: native splits for herdr (github.com/…/herdr) sessions, ported from
-// chuchu PR #69. A separate plugin APK; lives in this repo until the plugin API is released.
+// herdr for chuchu: native splits for herdr (https://github.com/herdrdev/herdr) sessions,
+// ported from chuchu PR #69. Ships as its own plugin APK that chuchu loads once enabled.
 android {
     namespace = "com.jossephus.chuchu.plugins.herdr"
     compileSdk {
@@ -35,8 +35,9 @@ android {
 }
 
 dependencies {
-    // Provided by chuchu at runtime; see examples/hello-plugin for why these are compileOnly.
-    compileOnly(project(":plugin-api"))
+    // Provided by chuchu at runtime, so compileOnly: chuchu's class loader answers first for
+    // these, and bundled copies would only be dead weight (or newer than chuchu's).
+    compileOnly(libs.chuchu.plugin.api)
     compileOnly(platform(libs.androidx.compose.bom))
     compileOnly(libs.androidx.compose.runtime)
     compileOnly(libs.androidx.compose.ui)
@@ -45,7 +46,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // compileOnly deps aren't on the unit-test classpath; tests run without chuchu.
-    testImplementation(project(":plugin-api"))
+    testImplementation(libs.chuchu.plugin.api)
     testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.compose.runtime)
     testImplementation(libs.androidx.compose.ui)

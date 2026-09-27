@@ -1,0 +1,25 @@
+[versions]
+# Keep Kotlin and the Compose BOM at or below the chuchu release you target: chuchu provides
+# the Compose runtime, and code compiled for a newer one may call methods it doesn't have.
+agp = "8.13.2"
+kotlin = "2.0.21"
+composeBom = "2024.09.00"
+kotlinxSerialization = "1.7.3"
+junit = "4.13.2"
+# chuchu's plugin API, from JitPack: a chuchu release tag, or a commit while it's unreleased.
+chuchuPluginApi = "369228b660"
+
+[libraries]
+chuchu-plugin-api = { group = "com.github.jossephus", name = "chuchu", version.ref = "chuchuPluginApi" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
